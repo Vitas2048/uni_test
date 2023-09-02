@@ -49,8 +49,9 @@ public class ClientController {
         if (result.hasErrors()){
             throw new ValidationException(result);
         }
-        clientService.saveByClientDto(clientDto);
-        return ResponseEntity.ok(clientDto);
+        var client = clientService.saveByClientDto(clientDto);
+        var responseDto = clientService.getClientDtoByClient(client);
+        return ResponseEntity.ok(responseDto);
     }
 
     @Operation(summary = "Add new contacts to current client")
@@ -95,7 +96,7 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getContactByName(name));
     }
 
-    @Operation(summary = "get contacts by type from client")
+    @Operation(summary = "get contacts by type from client by name")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -117,7 +118,7 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getContactByType(name, type));
     }
 
-    @Operation(summary = "Get All contacts")
+    @Operation(summary = "Get All clients")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
