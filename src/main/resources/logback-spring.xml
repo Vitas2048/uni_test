@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="FORMAT" value="%d [%thread] %-5level [%-40.40logger{10}] - %msg%n"/>
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{ISO8601} %highlight(%-5level) [%blue(%t)] %green(%C{1}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <logger name="admin" level="DEBUG"/>
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+    </root>
+
+</configuration>
