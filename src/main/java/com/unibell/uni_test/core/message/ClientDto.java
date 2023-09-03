@@ -16,6 +16,8 @@ public class ClientDto {
 
     private int id;
 
+    @NotEmpty
+    @NotNull
     private String name;
 
     private List<

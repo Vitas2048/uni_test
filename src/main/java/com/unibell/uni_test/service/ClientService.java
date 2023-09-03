@@ -33,7 +33,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public List<ClientDto> getAllClients() {
+    public List<ClientDto> getAllClientsDto() {
         return getAll().stream().map(this::getClientDtoByClient).toList();
     }
 
@@ -75,12 +75,12 @@ public class ClientService {
         throw new ApplicationException(ErrorCode.WRONG_TYPE);
     }
 
-    public Client saveByClientDto(ClientDto clientDto) {
+    public ClientDto saveByClientDto(ClientDto clientDto) {
         var client = new Client();
         client.setName(clientDto.getName());
         save(client);
         addNewContacts(clientDto, client);
-        return client;
+        return getClientDtoByClient(client);
     }
 
     public Client addNewContacts(ClientDto clientDto, Client client) {
@@ -97,6 +97,10 @@ public class ClientService {
             phoneNumRepository.save(phone);
         });
         return client;
+    }
+
+    public void deleteAll() {
+        clientRepository.deleteAll();
     }
 
     private List<String> getEmails(Client client) {

@@ -49,9 +49,7 @@ public class ClientController {
         if (result.hasErrors()){
             throw new ValidationException(result);
         }
-        var client = clientService.saveByClientDto(clientDto);
-        var responseDto = clientService.getClientDtoByClient(client);
-        return ResponseEntity.ok(responseDto);
+        return ResponseEntity.ok(clientService.saveByClientDto(clientDto));
     }
 
     @Operation(summary = "Add new contacts to current client")
@@ -92,7 +90,7 @@ public class ClientController {
             )
     })
     @GetMapping("/contacts")
-    public ResponseEntity<Contact> getContact(@RequestParam(value = "name") String name) throws ApplicationException{
+    public ResponseEntity<Contact> getContact(@RequestParam(value = "name") String name) throws ApplicationException {
         return ResponseEntity.ok(clientService.getContactByName(name));
     }
 
@@ -127,7 +125,7 @@ public class ClientController {
     })
     @GetMapping
     public ResponseEntity<List<ClientDto>> getAll() {
-        return ResponseEntity.ok(clientService.getAllClients());
+        return ResponseEntity.ok(clientService.getAllClientsDto());
     }
 
     @Operation(summary = "Get client by id")
